@@ -10,8 +10,8 @@
             >
                 <img
                     class="w-48 mr-6 mb-6"
-                    src="{{ asset("images/no-image.png")}}"
-                    alt=""
+                    src="{{ asset($job->logo ? "storage/".$job->logo : "images/no-image.png") }}"
+                    alt="{{ $job->title }}"
                 />
 
                 <h3 class="text-2xl mb-2">{{ $job->title }}</h3>

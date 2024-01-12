@@ -12,6 +12,7 @@
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
         />
+        <script src="//unpkg.com/alpinejs" defer></script>
         <script src="https://cdn.tailwindcss.com"></script>
         <script>
             tailwind.config = {
@@ -27,6 +28,7 @@
         <title>DevGigs | Find Dev Jobs & Projects</title>
     </head>
     <body class="mb-48">
+        <x-flash-message/>
         <nav class="flex justify-between items-center mb-4">
             <a href="/"
                 ><img class="w-24" src="{{ asset("images/logo.png") }}" alt="" class="logo"
@@ -55,7 +57,7 @@
             <p class="ml-2">Copyright &copy; 2022, All Rights reserved</p>
 
             <a
-                href="create.html"
+                href="/jobs/create"
                 class="absolute top-1/3 right-10 bg-black text-white py-2 px-5"
                 >Post Job
             </a>

@@ -16,4 +16,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [ListingController::class, 'index']);
-Route::get('jobs/{job}', [ListingController::class, 'show']);
+Route::get('/jobs/create', [ListingController::class, 'create']);
+Route::post('/jobs', [ListingController::class, 'save']);
+Route::get('/jobs/{job}', [ListingController::class, 'show']);
