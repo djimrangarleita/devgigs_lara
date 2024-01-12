@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\ListingController;
-use App\Models\Listing;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,4 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [ListingController::class, 'index']);
 Route::get('/jobs/create', [ListingController::class, 'create']);
 Route::post('/jobs', [ListingController::class, 'save']);
+Route::get('/jobs/{job}/edit', [ListingController::class, 'edit']);
+Route::put('/jobs/{job}', [ListingController::class, 'update']);
+Route::delete('/jobs/{job}', [ListingController::class, 'destroy']);
 Route::get('/jobs/{job}', [ListingController::class, 'show']);
