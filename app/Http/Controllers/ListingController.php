@@ -15,7 +15,8 @@ class ListingController extends Controller
         return view('listings.index', [
             "listings" => Listing::latest()
                 ->filter($request->query)
-                ->paginate(6)
+                ->paginate(2)
+                ->withQueryString()
         ]);
     }
 
@@ -87,7 +88,7 @@ class ListingController extends Controller
     public function manage()
     {
         return view('listings.manage', [
-            'listings' => auth()->user()->listings()->latest()->paginate(10),
+            'listings' => auth()->user()->listings()->latest()->paginate(10)->withQueryString(),
         ]);
     }
 
