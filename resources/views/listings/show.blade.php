@@ -46,18 +46,20 @@
                 </div>
             </div>
         </x-card-gray>
-        <x-card-gray class="mt-4 p-2 flex space-x-6">
-            <a href="/jobs/{{ $job->id }}/edit">
-                <i class="fas fa-pencil"></i> Edit
-            </a>
-            <form action="/jobs/{{ $job->id }}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button class="text-red-500">
-                    <i class="fas fa-trash"></i>
-                    Delete
-                </button>
-            </form>
-        </x-card-gray>
+        @if(auth()->user()?->id === $job->user_id)
+            <x-card-gray class="mt-4 p-2 flex space-x-6">
+                <a href="/jobs/{{ $job->id }}/edit">
+                    <i class="fas fa-pencil"></i> Edit
+                </a>
+                <form action="/jobs/{{ $job->id }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button class="text-red-500">
+                        <i class="fas fa-trash"></i>
+                        Delete
+                    </button>
+                </form>
+            </x-card-gray>
+        @endif
     </div>
 </x-layout>

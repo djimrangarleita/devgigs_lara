@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Symfony\Component\HttpFoundation\InputBag;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Listing extends Model
 {
@@ -20,6 +21,7 @@ class Listing extends Model
         'description',
         'tags',
         'logo',
+        'user_id'
     ];
 
     public function scopeFilter(Builder $query, InputBag $inputBag)
@@ -32,5 +34,10 @@ class Listing extends Model
                 ->orWhere('tags', 'like', "%$search%")
                 ->orWhere('description', 'like', "%$search%");
         }
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

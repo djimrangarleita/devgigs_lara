@@ -38,6 +38,7 @@ class ListingController extends Controller
         if ($request->hasFile('logo')) {
             $formData['logo'] = $request->file('logo')->store('logos', 'public');
         }
+        $formData['user_id'] = auth()->id();
 
         Listing::create($formData);
 
@@ -46,6 +47,8 @@ class ListingController extends Controller
 
     public function edit(Listing $job): View
     {
+        if ($job->user_id !== auth()->id()) abort(403, 'Unauthorized');
+
         return view('listings.edit', [
             'job' => $job,
         ]);
@@ -53,7 +56,10 @@ class ListingController extends Controller
 
     public function update(Request $request, Listing $job): RedirectResponse
     {
+        if ($job->user_id !== auth()->id()) abort(403, 'Unauthorized');
+
         $formData = $this->validateForm($request);
+
         if ($request->hasFile('logo')) {
             $this->removeFile($job);
             $formData['logo'] = $request->file('logo')->store('logos', 'public');
@@ -69,11 +75,20 @@ class ListingController extends Controller
 
     public function destroy(Listing $job): RedirectResponse
     {
+        if ($job->user_id !== auth()->id()) abort(403, 'Unauthorized');
+
         $title = $job->title;
         $this->removeFile($job);
         $job->delete();
 
         return redirect('/')->with('success', "$title deleted successfuly");
+    }
+
+    public function manage()
+    {
+        return view('listings.manage', [
+            'listings' => auth()->user()->listings()->latest()->paginate(10),
+        ]);
     }
 
     public function validateForm(Request $request, array $extra = []): array
